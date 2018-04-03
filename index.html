@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>irem gyro projesi</title>
+<meta name="viewport" content="width=device-width,user-scalable=yes" />
+<style>
+body,html { width:100%; height:100%; 
+	font-family: helvetica, arial, sans serif;
+}
+
+#content{ height:300px; width:100%;}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 100px;
+	height: 50px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 40px;
+	height: 40px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: #bada55;
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 130px;
+}
+
+// centering
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+
+
+</style>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+<textarea id="content" style="font-size:14px;">
+
+</textarea>
+
+
+
+<input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+
+<script type="text/javascript">
+
+var eb=0;
+var c=1;
+var x=0,y=0;
+
+
+
+//window.addEventListener('ondevicemotion', function(event) {		
+//document.getElementById("test").innerHTML = e.beta + " , "+e.gamma;
+		//$("#content").html( event.beta );
+//});
+if (window.DeviceMotionEvent != undefined) {
+
+
+
+	window.ondevicemotion = function(e) {
+		if( !$('#switch').prop('checked') ) return;
+		x=parseFloat(e.accelerationIncludingGravity.x).toFixed(3);
+		y=parseFloat(e.accelerationIncludingGravity.y).toFixed(3);
+		
+		
+		x=x*9;
+		y=y*9;
+		
+		
+		
+		
+		
+		x=parseFloat(x).toFixed(1);
+		y=parseFloat(y).toFixed(1);
+		
+		
+		
+		
+		if( x>=45 || x<=-45 ){
+			$("#content").append(x+";!;");
+		} else {
+			$("#content").append(x+";;");
+		}
+		
+		if( y>=45 || y<=-45 ){
+			$("#content").append(y+";!\n");
+		} else {
+			$("#content").append(y+";\n");
+		}
+		
+		
+		
+		
+		$("#content").scrollTop(100000000000);
+		
+		
+	}
+
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+/*
+setInterval( function() {
+
+		$("#content").html( eb );
+}, 300);
+*/
+
+</script>
+
+</body>
+</html>
